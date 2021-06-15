@@ -13,6 +13,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"runtime"
 	"unsafe"
 
@@ -35,7 +36,7 @@ func SaveToPNG(ctx context.Context, page, width uint16, scale float32, rawPayloa
 		return errors.New("output can't be nil")
 	}
 
-	payload, err := io.ReadAll(rawPayload)
+	payload, err := ioutil.ReadAll(rawPayload)
 	if err != nil {
 		return fmt.Errorf("fail to read the payload: %w", err)
 	}
@@ -74,7 +75,7 @@ func PageCount(ctx context.Context, rawPayload io.Reader) (int, error) {
 		return 0, errors.New("payload can't be nil")
 	}
 
-	payload, err := io.ReadAll(rawPayload)
+	payload, err := ioutil.ReadAll(rawPayload)
 	if err != nil {
 		return 0, fmt.Errorf("fail to read the payload: %w", err)
 	}
